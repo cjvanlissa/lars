@@ -13,7 +13,10 @@ function(x, y, K = 10, index,
       )
   }
   else  mode=match.arg(mode)
-  if(isFALSE(methods::hasArg("all.folds"))){
+  if(inherits(K, what = "list")){
+    all.folds <- K
+    K <- length(all.folds)
+  } else {
     all.folds <- cv.folds(length(y), K)
   }
 
