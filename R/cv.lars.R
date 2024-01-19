@@ -1,10 +1,9 @@
 cv.lars <-
-function(x, y, K = 10, index, 
+function(x, y, K = 10, index,
            trace = FALSE, plot.it = TRUE, se = TRUE,type = c("lasso", "lar", "forward.stagewise", "stepwise"),
          mode=c("fraction", "step"),...)
 {
   type=match.arg(type)
-
   if(missing(mode)){
     mode=switch(type,
       lasso="fraction",
@@ -14,7 +13,10 @@ function(x, y, K = 10, index,
       )
   }
   else  mode=match.arg(mode)
-  all.folds <- cv.folds(length(y), K)
+  if(isFALSE(methods::hasArg("all.folds"))){
+    all.folds <- cv.folds(length(y), K)
+  }
+
 if(missing(index)){
   index=seq(from = 0, to = 1, length = 100)
   if(mode=="step"){
